@@ -32,7 +32,7 @@ public class OrderProcess {
         HashMap<String, Object> param = new HashMap<>();
 
         param.put("status", 2);
-        param.put("tradeNo", "115123144482");
+        param.put("tradeNo", "666666");
         param.put("storeName", "方家铺子旗舰店");
         param.put("startDate", "2014-12-31 13:52:26");
         param.put("endDate", "2019-12-31 13:52:26");
