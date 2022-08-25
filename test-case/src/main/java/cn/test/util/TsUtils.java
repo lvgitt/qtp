@@ -41,7 +41,6 @@ public class TsUtils<T> {
      * @params [params：请求参数, requiredParams:必填参数集合，如果所有参数都要校验则传空]
      */
     public String checkRequiredParameters(Map<String, Object> params, String... requiredParams) {
-
         Set<Map.Entry<String, Object>> entries = params.entrySet();
         boolean empty = isEmpty(requiredParams);
         List<String> paramList = new ArrayList<>();
@@ -53,7 +52,6 @@ public class TsUtils<T> {
                 return "参数" + param + "不能为空!";
             }
         }
-
         for (Map.Entry<String, Object> entry : entries) {
             String key = entry.getKey();
             Object value = entry.getValue();
@@ -64,13 +62,11 @@ public class TsUtils<T> {
                 // 如果有传requiredParams，则不必进行下面的校验
                 continue;
             }
-
             // 如果没传requiredParams ，说明所有参数都需要校验
             if (empty && isEmpty(value)) {
                 return "参数" + key + "不能为空!";
             }
         }
-
         return null;
     }
 
@@ -87,25 +83,25 @@ public class TsUtils<T> {
     public boolean isEmpty(Object obj) {
 
         String nullStr = "null";
+        String undefineStr = "undefined";
         if (obj == null) {
             return true;
         }
-
         if (obj instanceof List) {
-            return ((List) obj).isEmpty();
+            return ((List<?>) obj).isEmpty() || ((List<?>) obj).get(0) == null;
+        }
+        if (obj instanceof Collection) {
+            return ((Collection<?>) obj).isEmpty();
         }
         if (obj instanceof Map) {
-            return ((Map) obj).isEmpty();
-        }
-        if (obj instanceof Set) {
-            return ((Set) obj).isEmpty();
+            return ((Map<?, ?>) obj).isEmpty();
         }
         if (obj.getClass().isArray()) {
-            List<Object> arr2List = Arrays.asList(obj);
-            return arr2List.isEmpty();
+            Object[] objArr = (Object[]) obj;
+            return objArr.length <= 0;
         }
         if (obj instanceof String) {
-            return "".equals(obj.toString().trim()) || nullStr.equals(obj.toString().trim());
+            return "".equals(obj.toString().trim()) || nullStr.equalsIgnoreCase(obj.toString().trim()) || undefineStr.equalsIgnoreCase(obj.toString().trim());
         }
 
         return false;
