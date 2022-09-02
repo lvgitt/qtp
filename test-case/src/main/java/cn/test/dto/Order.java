@@ -3,7 +3,6 @@ package cn.test.dto;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +11,6 @@ import java.util.List;
  * @since 2022-08-18 18:45:27
  */
 @Data
-@SuppressWarnings("serial")
 //@TableName(autoResultMap = true,value = "order")
 public class Order  {
     /**
